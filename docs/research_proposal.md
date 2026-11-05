@@ -190,4 +190,3 @@ The repository will include:
 - Instructions for reproducing the experiments
 
 The CASIA-B dataset will not be redistributed.
-
