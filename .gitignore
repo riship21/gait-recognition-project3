@@ -7,3 +7,5 @@ checkpoints/
 *.pt
 *.pth
 .ipynb_checkpoints/
+third_party/OpenGait/
+CASIA-B-pkl.zip
