@@ -190,3 +190,51 @@ The repository will include:
 - Instructions for reproducing the experiments
 
 The CASIA-B dataset will not be redistributed.
+
+## 11. Refined Capstone Research Contribution
+
+Motivation
+
+Our initial research investigates whether frame selection can improve GaitPart recognition under limited frame budgets.
+
+To extend this into a stronger capstone contribution, we will investigate how frame selection should adapt when silhouette quality varies within a walking sequence.
+
+Proposed Adaptive Method
+
+We propose an adaptive quality-diversity frame-selection strategy.
+
+Unlike our existing combined method, which uses a fixed quality weight of 0.5, the proposed method will adjust the balance between quality and diversity based on measurable sequence characteristics.
+
+For example, a sequence containing inconsistent or incomplete silhouettes may benefit from emphasizing quality, while a sequence containing consistently reliable silhouettes may benefit from emphasizing pose diversity.
+
+The exact adaptation rule will be defined before evaluating the final held-out test data.
+
+Robustness Experiments
+
+We will evaluate the proposed method on both original CASIA-B sequences and sequences containing controlled synthetic corruption.
+
+Potential corruptions include partial occlusion, missing silhouette regions, and foreground noise.
+
+All methods will use the same corruption settings, input sequences, frame budgets, and pretrained GaitPart checkpoint.
+
+Research Evaluation
+
+We will compare the adaptive method against:
+
+First-N sampling
+
+Uniform sampling
+
+Motion-diversity sampling
+
+Quality-aware sampling
+
+Fixed-weight quality-diversity sampling
+
+We will measure Rank-1 identification accuracy, computational overhead, and performance across walking conditions and viewpoints.
+
+Expected Research Contribution
+
+The goal is to determine whether adapting frame-selection behavior to sequence reliability improves recognition compared with fixed sampling strategies.
+
+We will report improvements, failures, and trade-offs rather than assuming the adaptive method must outperform existing approaches.
