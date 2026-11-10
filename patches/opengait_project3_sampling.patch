@@ -1,0 +1,54 @@
+diff --git a/opengait/data/collate_fn.py b/opengait/data/collate_fn.py
+index a78c73d..9d9947d 100644
+--- a/opengait/data/collate_fn.py
++++ b/opengait/data/collate_fn.py
+@@ -34,6 +34,22 @@ class CollateFn(object):
+         if self.sampler == 'all' and 'frames_all_limit' in sample_config:
+             self.frames_all_limit = sample_config['frames_all_limit']
+ 
++        # Project 3: Optional custom inference frame selection.
++        self.project3_method = sample_config.get('project3_method')
++        self.project3_quality_weight = sample_config.get(
++            'project3_quality_weight', 0.5
++        )
++
++        if self.project3_method is not None:
++            if self.sampler != 'all' or not self.ordered:
++                raise ValueError(
++                    'Project 3 requires sample_type: all_ordered'
++                )
++            if self.frames_all_limit <= 0:
++                raise ValueError(
++                    'Project 3 requires a positive frames_all_limit'
++                )
++
+         self.points_in_use = sample_config.get('points_in_use')
+ 
+     def __call__(self, batch):
+@@ -97,6 +113,26 @@ class CollateFn(object):
+                     indices = np.random.choice(
+                         indices, frames_num, replace=replace)
+ 
++            # Project 3: Replace default inference indices when enabled.
++            if self.project3_method is not None:
++                import sys
++                from pathlib import Path
++
++                project_root = Path(__file__).resolve().parents[4]
++                if str(project_root) not in sys.path:
++                    sys.path.insert(0, str(project_root))
++
++                from src.sampling.opengait_adapter import (
++                    select_opengait_indices,
++                )
++
++                indices = select_opengait_indices(
++                    seqs,
++                    budget=self.frames_all_limit,
++                    method=self.project3_method,
++                    quality_weight=self.project3_quality_weight,
++                )
++
+             for i in range(feature_num):
+                 for j in indices[:self.frames_all_limit] if self.frames_all_limit > -1 and len(indices) > self.frames_all_limit else indices:
+                     point_cloud_index = self.points_in_use.get('pointcloud_index') if self.points_in_use else None
