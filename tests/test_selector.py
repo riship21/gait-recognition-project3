@@ -101,6 +101,20 @@ class TestFrameSelector(unittest.TestCase):
                 np.full((3, 8, 8), np.nan), 2
             )
 
+    def test_adaptive_matches_standalone(self):
+        from src.sampling.adaptive import adaptive_indices
+
+        selected, indices = select_frames(
+            self.frames, 5, method="adaptive"
+        )
+
+        expected = adaptive_indices(self.frames, 5)
+
+        self.assertEqual(indices, expected)
+        np.testing.assert_array_equal(
+            selected, self.frames[expected]
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

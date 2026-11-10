@@ -7,9 +7,17 @@ from src.sampling.baselines import first_n_indices, uniform_indices
 from src.sampling.diversity import diversity_indices
 from src.sampling.quality import quality_indices
 from src.sampling.combined import combined_indices
+from src.sampling.adaptive import adaptive_indices
 
 
-METHODS = ("first_n", "uniform", "diversity", "quality", "combined")
+METHODS = (
+    "first_n",
+    "uniform",
+    "diversity",
+    "quality",
+    "combined",
+    "adaptive",
+)
 
 
 def select_frames(
@@ -70,10 +78,13 @@ def select_frames(
     elif method == "quality":
         indices = quality_indices(frames, budget)
 
-    else:
+    elif method == "combined":
         indices = combined_indices(
             frames, budget, quality_weight=quality_weight
         )
+
+    elif method == "adaptive":
+        indices = adaptive_indices(frames, budget)
 
     # Fail if any strategy violates our shared contract.
     if (
