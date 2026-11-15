@@ -1,0 +1,13 @@
+[2026-11-15 11:07:45] [INFO]: {'enable_float16': False, 'restore_ckpt_strict': True, 'restore_hint': 30000, 'save_name': 'GaitPart_Full_B32', 'eval_func': 'evaluate_indoor_dataset', 'sampler': {'batch_size': 1, 'sample_type': 'all_ordered', 'type': 'InferenceSampler', 'frames_all_limit': 15, 'project3_method': 'uniform'}, 'transform': [{'type': 'BaseSilCuttingTransform'}], 'metric': 'euc', 'cross_view_gallery': False}
+[2026-11-15 11:07:45] [INFO]: {'model': 'GaitPart', 'backbone_cfg': {'in_channels': 1, 'layers_cfg': ['BC-32', 'BC-32', 'M', 'FC-64-2', 'FC-64-2', 'M', 'FC-128-3', 'FC-128-3'], 'type': 'Plain'}, 'SeparateFCs': {'in_channels': 128, 'out_channels': 128, 'parts_num': 16}, 'bin_num': [16]}
+[2026-11-15 11:07:45] [INFO]: {'dataset_name': 'CASIA-B', 'dataset_root': '../../../gait-recognition-project2/data/processed/CASIA-B-pkl-compatible', 'num_workers': 1, 'dataset_partition': './datasets/CASIA-B/CASIA-B.json', 'remove_no_gallery': False, 'cache': False, 'test_dataset_name': 'CASIA-B'}
+[2026-11-15 11:07:45] [INFO]: -------- Test Pid List --------
+[2026-11-15 11:07:45] [INFO]: [075, 076, ..., 124], Len: 50
+[2026-11-15 11:07:55] [INFO]: Restore Parameters from output/CASIA-B/GaitPart/GaitPart_Full_B32/checkpoints/GaitPart_Full_B32-30000.pt !!!
+[2026-11-15 11:07:55] [INFO]: Parameters Count: 1.20400M
+[2026-11-15 11:07:55] [INFO]: Model Initialization Finished!
+[2026-11-15 11:08:22] [INFO]: ===Rank-1 (Exclude identical-view cases)===
+[2026-11-15 11:08:22] [INFO]: NM@R1: [77.90 89.60 94.30 89.70 86.40 82.10 85.40 88.30 91.60 88.10 76.60]
+[2026-11-15 11:08:22] [INFO]: BG@R1: [67.40 80.50 83.90 79.90 75.70 70.70 77.80 80.30 82.70 81.82 68.20]
+[2026-11-15 11:08:22] [INFO]: CL@R1: [46.60 56.90 63.60 56.00 60.20 57.20 59.90 61.00 56.00 53.30 48.90]
+[2026-11-15 11:08:22] [INFO]: NM@R1: 86.36%	BG@R1: 77.17%	CL@R1: 56.33%	
