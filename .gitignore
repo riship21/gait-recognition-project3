@@ -9,3 +9,5 @@ checkpoints/
 .ipynb_checkpoints/
 third_party/OpenGait/
 CASIA-B-pkl.zip
+# Generated Project 3 experiment datasets
+data/generated/
