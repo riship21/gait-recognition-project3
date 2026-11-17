@@ -230,6 +230,7 @@ def main():
         writer = csv.DictWriter(
             file,
             fieldnames=list(rows[0].keys()),
+            lineterminator="\n",
         )
 
         writer.writeheader()
