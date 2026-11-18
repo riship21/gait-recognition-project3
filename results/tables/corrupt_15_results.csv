@@ -1,3 +1,4 @@
 method,budget,nm_rank1,bg_rank1,cl_rank1
 first_n,15,56.32,46.74,35.17
 uniform,15,80.25,70.76,50.17
+diversity,15,85.51,75.50,55.12
