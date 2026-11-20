@@ -1,0 +1,42 @@
+diff --git a/opengait/evaluation/evaluator.py b/opengait/evaluation/evaluator.py
+index d6655a1..3393904 100644
+--- a/opengait/evaluation/evaluator.py
++++ b/opengait/evaluation/evaluator.py
+@@ -114,6 +114,37 @@ def single_view_gallery_evaluation(feature, label, seq_type, view, dataset, metr
+                 acc[type_][v1, v2, :] = np.round(np.sum(np.cumsum(np.reshape(probe_y, [-1, 1]) == gallery_y[idx[:, 0:num_rank]], 1) > 0,
+                                                      0) * 100 / dist.shape[0], 2)
+ 
++    # Project 3: report identical-view Rank-1 cells for the expanded
++    # GEI-vs-GaitPart baseline comparison. This does not change the
++    # underlying OpenGait identification calculations.
++    if dataset == "CASIA-B":
++        msg_mgr.log_info("===PROJECT3_SAME_VIEW_START===")
++
++        for type_, probe_seq in probe_seq_dict[dataset].items():
++            for v_idx, same_view in enumerate(view_list):
++                p_mask = (
++                    np.isin(seq_type, probe_seq)
++                    & np.isin(view, same_view)
++                )
++
++                g_mask = (
++                    np.isin(seq_type, gallery_seq_dict[dataset])
++                    & np.isin(view, [same_view])
++                )
++
++                rank1 = acc[type_][v_idx, v_idx, 0]
++
++                msg_mgr.log_info(
++                    f"PROJECT3_SAME_VIEW,"
++                    f"{type_},"
++                    f"{same_view},"
++                    f"{int(np.sum(g_mask))},"
++                    f"{int(np.sum(p_mask))},"
++                    f"{rank1:.2f}"
++                )
++
++        msg_mgr.log_info("===PROJECT3_SAME_VIEW_END===")
++
+     result_dict = {}
+     msg_mgr.log_info('===Rank-1 (Exclude identical-view cases)===')
+     out_str = ""
